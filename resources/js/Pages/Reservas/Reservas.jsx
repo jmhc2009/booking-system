@@ -10,7 +10,7 @@ import InputError from "@/Components/InputError";
 import Swal from "sweetalert2";
 import Select from "@/Components/Select";
 
-export default function Reservas({ auth, bookings }) {
+export default function Reservas({ auth, bookings, vehicles }) {
     const [modal, setModal] = useState(false);
     const [title, setTitle] = useState("");
     const [operation, setOperation] = useState(1);
@@ -28,8 +28,8 @@ export default function Reservas({ auth, bookings }) {
     const statusInput = useRef();
     const observationInput = useRef();
 
-    console.log(auth)
-    console.log(bookings)
+    
+    console.log(vehicles)
 
     const {
         data,
@@ -432,8 +432,10 @@ export default function Reservas({ auth, bookings }) {
                             <h2 className="p-3 text-lg font-medium text-gray-900">
                                 {title}
                             </h2>
+                            
                            
-                            <form>                         
+                            <form>  
+                                                       
                                 
                                 <input
                                     name="date"
@@ -512,50 +514,70 @@ export default function Reservas({ auth, bookings }) {
                                     message={errors.airline}
                                     className="mt-2 "
                                 />
-                                <input
+                                <Select
+                                    id='from'
                                     name="from"
                                     ref={fromInput}
                                     value={data.from}
                                     onChange={(e) =>
                                         setData("from", e.target.value)
                                     }
-                                    type="text"
+                                    type="select"
                                     placeholder="Desde"
                                     autoFocus
                                     className="mb-3 inline-block mr-3 w-60 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                                    options={[
+                                        "Comuna inicio",
+                                        "Providencia",
+                                        "Las Condes",
+                                        "Santiago",
+
+                                    ]}
                                 />
                                 <InputError
                                     message={errors.from}
                                     className="mt-2 "
                                 />
-                                <input
+                                <Select
                                     name="until"
                                     ref={untilInput}
                                     value={data.until}
                                     onChange={(e) =>
                                         setData("until", e.target.value)
                                     }
-                                    type="text"
+                                    type="select"
                                     placeholder="Hasta"
                                     autoFocus
                                     className="mb-3 inline-block w-60 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                                    options={[
+                                        "Comuna de destino",
+                                        "San Bernardo",
+                                    ]}
                                 />
                                 <InputError
                                     message={errors.until}
                                     className="mt-2 "
                                 />
-                                <input
+                                <Select
+                                    id="passenger"
                                     name="passenger"
                                     ref={passengerInput}
                                     value={data.passenger}
                                     onChange={(e) =>
                                         setData("passenger", e.target.value)
                                     }
-                                    type="text"
+                                    type="select"
                                     placeholder="Pasajero"
                                     autoFocus
                                     className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                                    options={[
+                                        'Ingrese un pasajero',
+                                        'Pasajero 1',
+                                        'Pasajero 2',
+
+                                    ]}
                                 />
+
                                 <InputError
                                     message={errors.passenger}
                                     className="mt-2 "
@@ -610,8 +632,8 @@ export default function Reservas({ auth, bookings }) {
                                 />
 
                                
-
-                                <Select                                  
+                               
+                                <Select                                                                    
                                     id="vehicle"
                                     name="vehicle"
                                     ref={vehicleInput}
@@ -630,7 +652,7 @@ export default function Reservas({ auth, bookings }) {
                                         2,
                                         3,
                                     ]}
-                                />
+                                />                            
                                 
 
                                 <InputError
@@ -703,6 +725,8 @@ export default function Reservas({ auth, bookings }) {
 
                                 
                             </form>
+
+                        
                           
                             
                         </div>
